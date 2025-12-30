@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>User Profile - Zoogle</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+        min-height: 100vh;
+        background: linear-gradient(
+          135deg,
+          #f8fafc 0%,
+          #e2e8f0 50%,
+          #cbd5e1 100%
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        color: #1e293b;
+        position: relative;
+        overflow-x: hidden;
+      }
+      body::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%"><stop offset="0%" stop-color="%231e293b" stop-opacity="0.05"/><stop offset="100%" stop-color="%23000000" stop-opacity="0.02"/></radialGradient></defs><rect width="100%" height="100%" fill="url(%23a)"/></svg>');
+        opacity: 0.5;
+      }
+      .card {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        max-width: 720px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        border-radius: 24px;
+        box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15);
+        overflow: hidden;
+      }
+      .card::before {
+        content: "";
+        display: block;
+        height: 4px;
+        background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      }
+      .profile-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 32px 24px 16px 24px;
+      }
+      .avatar {
+        width: 88px;
+        height: 88px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        color: white;
+        font-weight: 700;
+        font-size: 1.5rem;
+        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+        margin-bottom: 14px;
+      }
+      .name {
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+      .email {
+        color: #64748b;
+        font-weight: 500;
+      }
+      .section-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin: 8px 0 0 0;
+      }
+      form {
+        padding: 0 24px 24px 24px;
+        margin-top: 8px;
+        display: block;
+      }
+      label {
+        display: block;
+        margin-top: 14px;
+        color: #374151;
+        font-weight: 600;
+        font-size: 0.95rem;
+      }
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 14px 16px;
+        margin-top: 6px;
+        border: 2px solid rgba(59, 130, 246, 0.2);
+        border-radius: 12px;
+        font-size: 1rem;
+        background: rgba(255, 255, 255, 0.9);
+        color: #1e293b;
+        outline: none;
+        transition: all 0.2s ease;
+      }
+      input:focus,
+      select:focus,
+      textarea:focus {
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+        background: white;
+      }
+      textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+      .actions {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 20px;
+      }
+      button {
+        padding: 14px 20px;
+        background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        font-weight: 600;
+        box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        transition: all 0.3s ease;
+      }
+      button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+      }
+      @media (max-width: 520px) {
+        .card {
+          border-radius: 18px;
+        }
+        .avatar {
+          width: 76px;
+          height: 76px;
+          font-size: 1.2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="profile-header">
+        <div class="avatar" id="avatar">Z</div>
+        <div class="name" id="regName">-</div>
+        <div class="email" id="regEmail">-</div>
+        <div class="section-title">Complete your profile</div>
+      </div>
+
+      <form id="profileForm" enctype="multipart/form-data">
+        <label for="contact">Contact Number:</label>
+        <input
+          type="tel"
+          id="contact"
+          name="contact_number"
+          required
+          placeholder="Enter contact number"
+        />
+
+        <label for="business-name">Business Name:</label>
+        <input
+          type="text"
+          id="business-name"
+          name="business_name"
+          required
+          placeholder="Enter business name"
+        />
+
+        <label for="category">Business Category:</label>
+        <select id="category" name="business_category" required>
+          <option value="">-- Select Category --</option>
+          <option value="retail">Retail</option>
+          <option value="service">Service</option>
+          <option value="manufacturing">Manufacturing</option>
+          <option value="technology">Technology</option>
+          <option value="other">Other</option>
+        </select>
+
+        <label for="description">Description:</label>
+        <textarea
+          id="description"
+          name="description"
+          rows="5"
+          placeholder="Describe your business..."
+        ></textarea>
+
+        <label for="address">Address:</label>
+        <textarea
+          id="address"
+          name="address"
+          rows="3"
+          placeholder="Enter your address"
+        ></textarea>
+
+        <label for="image">Profile Image:</label>
+        <input 
+          type="file"
+          id="image"
+          name="myfile"
+          accept="image/*"
+          required
+        />
+
+        <div class="actions">
+          <button type="submit">Update Profile</button>
+        </div>
+      </form>
+    </div>
+    <script>
+      // Prefill registered name/email from localStorage (set during signup)
+      var email = "";
+      try {
+        const raw = localStorage.getItem("zoogle_user");
+        const user = raw ? JSON.parse(raw) : null;
+        if (user) {
+          email = user.email;
+          const nameEl = document.getElementById("regName");
+          const emailEl = document.getElementById("regEmail");
+          const avatarEl = document.getElementById("avatar");
+          const name = user.Full_Name || "-";
+          if (nameEl) nameEl.textContent = name;
+          if (emailEl) emailEl.textContent = user.email || "-";
+          if (avatarEl) {
+            const initials =
+              String(name)
+                .trim()
+                .split(/\s+/)
+                .slice(0, 2)
+                .map((p) => p[0] || "")
+                .join("")
+                .toUpperCase() || "Z";
+            avatarEl.textContent = initials;
+          }
+        } else {
+          // Try alternative localStorage keys
+          email = localStorage.getItem("registeredEmail") || localStorage.getItem("email");
+          if (email) {
+            document.getElementById("regEmail").textContent = email;
+          }
+        }
+      } catch (error) {
+        console.error("Error loading user data:", error);
+      }
+
+      const form = document.querySelector("form");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const contact_number = document.getElementById("contact").value;
+        const business_name = document.getElementById("business-name").value;
+        const business_category = document.getElementById("category").value;
+        const description = document.getElementById("description").value;
+        const address = document.getElementById("address").value;
+        const imageFile = document.getElementById("image").files[0];
+
+        // Check if email is available
+        if (!email) {
+          email = prompt("Please enter your email address:");
+          if (!email) {
+            alert("Email is required to save profile.");
+            return;
+          }
+          localStorage.setItem("registeredEmail", email);
+          document.getElementById("regEmail").textContent = email;
+        }
+
+        // Validate required fields
+        if (!contact_number || !business_name || !business_category || !description || !address) {
+          alert("Please fill in all required fields.");
+          return;
+        }
+
+        // Show loading state
+        const submitButton = form.querySelector('button[type="submit"]');
+        const originalButtonText = submitButton.textContent;
+        submitButton.textContent = "Uploading...";
+        submitButton.disabled = true;
+
+        // First upload the image
+        let imagePath = "";
+        if (imageFile) {
+          try {
+            const formData = new FormData();
+            formData.append('myfile', imageFile);
+
+            const uploadResponse = await fetch("http://localhost:5550/upload-image", {
+              method: "POST",
+              body: formData,
+            });
+
+            if (uploadResponse.ok) {
+              const uploadResult = await uploadResponse.json();
+              imagePath = uploadResult.path;
+            } else {
+              const uploadError = await uploadResponse.json();
+              throw new Error(uploadError.message || "Image upload failed");
+            }
+          } catch (uploadError) {
+            alert("Image upload failed: " + uploadError.message);
+            submitButton.textContent = originalButtonText;
+            submitButton.disabled = false;
+            return;
+          }
+        }
+
+        // Then save the profile data
+        const data = {
+          email: email,
+          contact_number: contact_number,
+          business_name: business_name,
+          business_category: business_category,
+          description: description,
+          address: address,
+          image: imagePath,
+        };
+
+        try {
+          // Check if profile already exists
+          const checkResponse = await fetch("http://localhost:5550/getProfile");
+          const existingProfiles = await checkResponse.json();
+          const existingProfile = existingProfiles.find(profile => profile.email === email);
+          
+          // Use update API if profile exists, otherwise use insert API
+          const apiEndpoint = existingProfile ? "/update-profile" : "/insert-profile";
+          
+          const response = await fetch(`http://localhost:5550${apiEndpoint}`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          });
+
+          if (response.ok) {
+            const successMessage = existingProfile ? "Profile updated successfully!" : "Profile created successfully!";
+            alert(`${successMessage} Redirecting to your profile...`);
+            setTimeout(() => {
+              window.location.href = "../home/index.html";
+            }, 1500);
+          } else {
+            const result = await response.json();
+            alert("Failed to update profile: " + (result.message || "Unknown error"));
+            submitButton.textContent = originalButtonText;
+            submitButton.disabled = false;
+          }
+        } catch (error) {
+          alert("Error submitting form: " + error.message);
+          submitButton.textContent = originalButtonText;
+          submitButton.disabled = false;
+        }
+      });
+    </script>
+  </body>
+</html>

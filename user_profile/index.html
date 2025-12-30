@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Profile - Zoogle</title>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    rel="stylesheet"
+  />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: 100vh;
+        padding: 20px;
+        padding-top: 100px; /* Add space for fixed navbar */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Navbar styling */
+      .navbar {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        padding: 16px 50px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      }
+
+      .navbar-left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-decoration: none;
+      }
+
+      .profile-btn {
+        background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        border: none;
+        cursor: pointer;
+        padding: 10px;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+      }
+
+      .profile-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+      }
+
+      .profile-btn i {
+        color: white;
+        font-size: 1.2rem;
+      }
+
+      .navbar-right {
+        list-style: none;
+        display: flex;
+        gap: 24px;
+        margin: 0;
+        padding: 0;
+      }
+
+      .navbar-right li {
+        display: inline-block;
+      }
+
+      .navbar-right a {
+        color: #475569;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1rem;
+        padding: 10px 16px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .navbar-right a:hover {
+        background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        color: white;
+        transform: translateY(-1px);
+      }
+
+      /* Mobile menu button */
+      .mobile-menu-btn {
+        display: none;
+        background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        border: none;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+      }
+
+      .mobile-menu-btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+      }
+
+      .mobile-menu-btn i {
+        color: white;
+        font-size: 1.2rem;
+      }
+
+      /* Mobile menu */
+      .mobile-menu {
+        display: none;
+        position: fixed;
+        top: 80px;
+        left: 0;
+        right: 0;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(20px);
+        border-top: 1px solid rgba(59, 130, 246, 0.2);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        z-index: 999;
+        transform: translateY(-100%);
+        transition: transform 0.3s ease;
+      }
+
+      .mobile-menu.active {
+        transform: translateY(0);
+      }
+
+      .mobile-menu ul {
+        list-style: none;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .mobile-menu li {
+        display: block;
+      }
+
+      .mobile-menu a {
+        color: #475569;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1.1rem;
+        padding: 12px 16px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        display: block;
+      }
+
+      .mobile-menu a:hover {
+        background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        color: white;
+        transform: translateX(8px);
+      }
+    
+    .profile-container {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 1000px;
+      padding: 40px;
+    }
+    
+    .profile-header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .avatar {
+      width: 120px;
+      height: 120px;
+      background: #3b82f6;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 36px;
+      font-weight: bold;
+      margin: 0 auto 20px auto;
+      border: 4px solid #e2e8f0;
+    }
+    
+    .user-info h2 {
+      color: #333;
+      margin-bottom: 5px;
+    }
+    
+    .user-info p {
+      color: #666;
+      font-size: 14px;
+    }
+    
+    .alert {
+      background: #fee;
+      color: #c53030;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 25px;
+      border-left: 4px solid #c53030;
+    }
+    
+    .content {
+      margin-bottom: 30px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+    
+    .section {
+      background: #f8f9fa;
+      padding: 25px;
+      border-radius: 10px;
+      margin-bottom: 0;
+    }
+    
+    .section h3 {
+      color: #333;
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+    
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 8px 0;
+      border-bottom: 1px dotted #ccc;
+    }
+    
+    .info-row:has(.info-value div) {
+      align-items: flex-start;
+    }
+    
+    .info-row:last-child {
+      border-bottom: none;
+    }
+    
+    .info-label {
+      font-weight: 500;
+      color: #555;
+    }
+    
+    .info-value {
+      color: #999;
+      text-align: right;
+      flex: 1;
+    }
+    
+    .info-value div {
+      text-align: left;
+      margin-top: 5px;
+    }
+    
+    .buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 15px;
+    }
+    
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .btn-back {
+      background: #e2e8f0;
+      color: #4a5568;
+    }
+    
+    
+    .btn:hover {
+      opacity: 0.9;
+    }
+    
+      @media (max-width: 768px) {
+        .navbar {
+          padding: 12px 20px;
+        }
+
+        .navbar-right {
+          display: none;
+        }
+
+        .mobile-menu-btn {
+          display: block;
+        }
+
+        .profile-container {
+          padding: 20px;
+          max-width: 95%;
+        }
+
+        .content {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+        
+        .avatar {
+          width: 100px;
+          height: 100px;
+          font-size: 30px;
+        }
+        
+        .buttons {
+          flex-direction: column;
+        }
+      }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <header>
+    <nav class="navbar">
+      <div class="navbar-left">
+        <a href="../home/index.html" class="logo">Zoogle</a>
+        <button class="profile-btn" onclick="openUserProfile()">
+          <i class="fas fa-user"></i>
+        </button>
+      </div>
+      <ul class="navbar-right">
+        <li><a href="../home/index.html">Home</a></li>
+        <li><a href="../about/index.html">About</a></li>
+        <li><a href="../login/index.html">Login</a></li>
+        <li><a href="../sign_up/index.html">Register</a></li>
+      </ul>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+        <i class="fas fa-bars"></i>
+      </button>
+    </nav>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <ul>
+        <li><a href="../home/index.html">Home</a></li>
+        <li><a href="../about/index.html">About</a></li>
+        <li><a href="../login/index.html">Login</a></li>
+        <li><a href="../sign_up/index.html">Register</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="profile-container">
+    <div class="profile-header">
+      <div class="avatar" id="avatar">Z</div>
+      <div class="user-info">
+        <h2 id="userName"></h2>
+        <p id="userEmail"></p>
+      </div>
+    </div>
+    
+    <div class="alert">
+      We could not find your business details yet. Please complete your profile.
+    </div>
+    
+    <div class="content">
+      <div class="section">
+        <h3>Personal Information</h3>
+        <div class="info-row">
+          <span class="info-label">Full Name</span>
+          <span class="info-value" id="fullName"></span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Email</span>
+          <span class="info-value" id="email"></span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Contact Number</span>
+          <span class="info-value" id="contact">-</span>
+        </div>
+      </div>
+      
+      <div class="section">
+        <h3>Business Information</h3>
+        <div class="info-row">
+          <span class="info-label">Business Name</span>
+          <span class="info-value" id="businessName">-</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Category</span>
+          <span class="info-value" id="category">-</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Description</span>
+          <div class="info-value" id="description" style="max-width: 300px; word-wrap: break-word; line-height: 1.4;">-</div>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Address</span>
+          <span class="info-value" id="address">-</span>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <script>
+    // Load user data from localStorage and database
+    async function loadUserData() {
+      try {
+        // Get user email from localStorage
+        const userData = localStorage.getItem('zoogle_user');
+        let userEmail = '';
+        
+        if (userData) {
+          const user = JSON.parse(userData);
+          userEmail = user.email;
+          
+          // Update basic info from localStorage
+          if (user.Full_Name) {
+            document.getElementById('userName').textContent = user.Full_Name;
+            document.getElementById('fullName').textContent = user.Full_Name;
+            
+            // Update avatar with initials
+            const initials = user.Full_Name.split(' ').map(name => name[0]).join('').toUpperCase();
+            document.getElementById('avatar').textContent = initials;
+          }
+          
+          if (user.email) {
+            document.getElementById('userEmail').textContent = user.email;
+            document.getElementById('email').textContent = user.email;
+          }
+        } else {
+          // Try alternative localStorage keys
+          userEmail = localStorage.getItem('registeredEmail') || localStorage.getItem('email');
+          if (userEmail) {
+            document.getElementById('userEmail').textContent = userEmail;
+            document.getElementById('email').textContent = userEmail;
+            document.getElementById('userName').textContent = 'User';
+            document.getElementById('fullName').textContent = 'User';
+          }
+        }
+        
+        // Fetch profile data from database
+        if (userEmail) {
+          await loadProfileData(userEmail);
+        }
+        
+      } catch (error) {
+        console.log('Error loading user data:', error);
+      }
+    }
+    
+    // Load profile data from database
+    async function loadProfileData(email) {
+      try {
+        const response = await fetch('http://localhost:5550/getProfile');
+        const profiles = await response.json();
+        
+        if (response.ok && profiles) {
+          // Find profile for current user
+          const userProfile = profiles.find(profile => profile.email === email);
+          
+          if (userProfile) {
+            // Hide alert
+            document.querySelector('.alert').style.display = 'none';
+            
+            // Update profile data
+            document.getElementById('contact').textContent = userProfile.contact_number || '-';
+            document.getElementById('businessName').textContent = userProfile.business_name || '-';
+            document.getElementById('category').textContent = userProfile.business_category || '-';
+            document.getElementById('description').innerHTML = userProfile.description ? userProfile.description.replace(/\n/g, '<br>') : '-';
+            document.getElementById('address').textContent = userProfile.address || '-';
+            
+            // Update avatar with profile image if available
+            if (userProfile.image) {
+              const avatar = document.getElementById('avatar');
+              avatar.style.backgroundImage = `url(http://localhost:5550${userProfile.image})`;
+              avatar.style.backgroundSize = 'cover';
+              avatar.style.backgroundPosition = 'center';
+              avatar.textContent = ''; // Remove initials when image is present
+            }
+          } else {
+            // Show alert if no profile found
+            document.querySelector('.alert').style.display = 'block';
+          }
+        }
+      } catch (error) {
+        console.log('Error loading profile data:', error);
+        document.querySelector('.alert').style.display = 'block';
+      }
+    }
+    
+    // Load data when page loads
+    document.addEventListener('DOMContentLoaded', loadUserData);
+
+    // Navbar functions
+    function openUserProfile() {
+      // Already on profile page, do nothing or refresh
+      window.location.reload();
+    }
+
+    function toggleMobileMenu() {
+      const mobileMenu = document.getElementById("mobileMenu");
+      const menuBtn = document.querySelector(".mobile-menu-btn i");
+
+      if (mobileMenu.classList.contains("active")) {
+        mobileMenu.classList.remove("active");
+        menuBtn.classList.remove("fa-times");
+        menuBtn.classList.add("fa-bars");
+      } else {
+        mobileMenu.classList.add("active");
+        menuBtn.classList.remove("fa-bars");
+        menuBtn.classList.add("fa-times");
+      }
+    }
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us - Zoogle</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: #1e293b;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%"><stop offset="0%" stop-color="%231e293b" stop-opacity="0.05"/><stop offset="100%" stop-color="%23000000" stop-opacity="0.02"/></radialGradient></defs><rect width="100%" height="100%" fill="url(%23a)"/></svg>');
+      opacity: 0.5;
+    }
+
+    /* Navbar styling */
+    .navbar {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      padding: 16px 50px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .profile-btn {
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      border: none;
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    }
+
+    .profile-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+    }
+
+    .profile-btn i {
+      color: white;
+      font-size: 1.2rem;
+    }
+
+    .navbar-right {
+      list-style: none;
+      display: flex;
+      gap: 24px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar-right li {
+      display: inline-block;
+    }
+
+    .navbar-right a {
+      color: #475569;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      padding: 10px 16px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .navbar-right a:hover {
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      color: white;
+      transform: translateY(-1px);
+    }
+
+    .navbar-right a.active {
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      color: white;
+    }
+
+    /* Mobile menu button */
+    .mobile-menu-btn {
+      display: none;
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .mobile-menu-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    }
+
+    .mobile-menu-btn i {
+      color: white;
+      font-size: 1.2rem;
+    }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 80px;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(59, 130, 246, 0.2);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      z-index: 999;
+      transform: translateY(-100%);
+      transition: transform 0.3s ease;
+    }
+
+    .mobile-menu.active {
+      transform: translateY(0);
+    }
+
+    .mobile-menu ul {
+      list-style: none;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .mobile-menu li {
+      display: block;
+    }
+
+    .mobile-menu a {
+      color: #475569;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+      padding: 12px 16px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      display: block;
+    }
+
+    .mobile-menu a:hover {
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      color: white;
+      transform: translateX(8px);
+    }
+
+    .mobile-menu a.active {
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      color: white;
+    }
+
+    /* Main content */
+    .main-content {
+      position: relative;
+      z-index: 2;
+      padding-top: 100px;
+      min-height: 100vh;
+    }
+
+    /* Hero section */
+    .hero-section {
+      padding: 80px 20px;
+      text-align: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .hero-section h1 {
+      font-size: 4rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 24px;
+      text-shadow: 0 4px 8px rgba(59, 130, 246, 0.2);
+      letter-spacing: -0.02em;
+    }
+
+    .hero-section .subtitle {
+      font-size: 1.5rem;
+      color: #64748b;
+      margin-bottom: 16px;
+      font-weight: 400;
+    }
+
+    .hero-section .description {
+      font-size: 1.2rem;
+      color: #475569;
+      margin-bottom: 48px;
+      font-weight: 300;
+      line-height: 1.7;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Content sections */
+    .content-section {
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #1e293b;
+      text-align: center;
+      margin-bottom: 48px;
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 32px;
+      margin-bottom: 80px;
+    }
+
+    .feature-card {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: 0 20px 40px rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-12px) scale(1.03);
+      box-shadow: 0 30px 60px rgba(59, 130, 246, 0.2);
+      border-color: rgba(59, 130, 246, 0.4);
+    }
+
+    .feature-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+    }
+
+    .feature-icon i {
+      font-size: 2rem;
+      color: white;
+    }
+
+    .feature-card h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 16px;
+    }
+
+    .feature-card p {
+      color: #64748b;
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+
+    /* Stats section */
+    .stats-section {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 60px 40px;
+      margin: 60px 0;
+      box-shadow: 0 20px 40px rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      text-align: center;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 1.1rem;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    /* Team section */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+      margin-bottom: 80px;
+    }
+
+    .team-card {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 32px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .team-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 50px rgba(59, 130, 246, 0.15);
+    }
+
+    .team-avatar {
+      width: 120px;
+      height: 120px;
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+    }
+
+    .team-avatar i {
+      font-size: 3rem;
+      color: white;
+    }
+
+    .team-card h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 8px;
+    }
+
+    .team-card .role {
+      color: #3b82f6;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .team-card p {
+      color: #64748b;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    /* Mission section */
+    .mission-section {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 60px 40px;
+      margin: 60px 0;
+      box-shadow: 0 20px 40px rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      text-align: center;
+    }
+
+    .mission-section h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .mission-section p {
+      font-size: 1.2rem;
+      color: #64748b;
+      line-height: 1.7;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Footer */
+    .footer {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(20px);
+      padding: 60px 20px;
+      text-align: center;
+      border-top: 1px solid rgba(59, 130, 246, 0.2);
+      margin-top: 80px;
+    }
+
+    .footer p {
+      color: #64748b;
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 12px 20px;
+      }
+
+      .navbar-right {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .mobile-menu {
+        display: block;
+      }
+
+      .hero-section h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-section .subtitle {
+        font-size: 1.2rem;
+      }
+
+      .hero-section .description {
+        font-size: 1rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .feature-card {
+        padding: 30px 25px;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+
+      .stat-number {
+        font-size: 2.5rem;
+      }
+
+      .team-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .mission-section {
+        padding: 40px 25px;
+      }
+
+      .mission-section h2 {
+        font-size: 2rem;
+      }
+
+      .mission-section p {
+        font-size: 1.1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-section h1 {
+        font-size: 2rem;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stat-number {
+        font-size: 2rem;
+      }
+
+      .feature-card {
+        padding: 25px 20px;
+      }
+
+      .mission-section {
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <header>
+    <nav class="navbar">
+      <div class="navbar-left">
+        <div class="logo">Zoogle</div>
+        <button class="profile-btn">
+          <i class="fas fa-user"></i>
+        </button>
+      </div>
+      <ul class="navbar-right">
+        <li><a href="../home/index.html">Home</a></li>
+        <li><a href="index.html" class="active">About</a></li>
+        <li><a href="../login/index.html">Login</a></li>
+        <li><a href="../sign_up/index.html">Register</a></li>
+      </ul>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+        <i class="fas fa-bars"></i>
+      </button>
+    </nav>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <ul>
+        <li><a href="../home/index.html">Home</a></li>
+        <li><a href="index.html" class="active">About</a></li>
+        <li><a href="../login/index.html">Login</a></li>
+        <li><a href="../sign_up/index.html">Register</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <h1>About Zoogle</h1>
+      <p class="subtitle">Revolutionizing Search Technology</p>
+      <p class="description">
+        We're on a mission to make information accessible, discoverable, and meaningful for everyone. 
+        Our advanced AI-powered search engine combines cutting-edge technology with user-centric design 
+        to deliver the most relevant and comprehensive search results.
+      </p>
+    </section>
+
+    <!-- Features Section -->
+    <section class="content-section">
+      <h2 class="section-title">Why Choose Zoogle?</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-brain"></i>
+          </div>
+          <h3>AI-Powered Intelligence</h3>
+          <p>Our advanced machine learning algorithms understand context, intent, and user behavior to deliver the most relevant results for every search query.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-bolt"></i>
+          </div>
+          <h3>Lightning Fast Results</h3>
+          <p>Experience search results in milliseconds with our optimized infrastructure and distributed computing architecture designed for speed and reliability.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h3>Privacy First</h3>
+          <p>Your privacy is our priority. We use advanced encryption and privacy-preserving techniques to protect your search data and personal information.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-globe"></i>
+          </div>
+          <h3>Global Coverage</h3>
+          <p>Access information from billions of web pages across multiple languages and regions, with localized results tailored to your location and preferences.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-mobile-alt"></i>
+          </div>
+          <h3>Cross-Platform</h3>
+          <p>Seamlessly search across all your devices with our responsive design and native mobile applications for iOS and Android.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3>Continuous Innovation</h3>
+          <p>We constantly evolve our search technology with regular updates, new features, and improvements based on user feedback and emerging trends.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="content-section">
+      <div class="stats-section">
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-number">2.5B+</div>
+            <div class="stat-label">Daily Searches</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">99.9%</div>
+            <div class="stat-label">Uptime</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">50M+</div>
+            <div class="stat-label">Active Users</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">150+</div>
+            <div class="stat-label">Countries</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="content-section">
+      <h2 class="section-title">Meet Our Team</h2>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-avatar">
+            <i class="fas fa-user-tie"></i>
+          </div>
+          <h3>Sarah Johnson</h3>
+          <div class="role">CEO & Founder</div>
+          <p>Visionary leader with 15+ years in search technology and AI. Former Google engineer passionate about democratizing information access.</p>
+        </div>
+        
+        <div class="team-card">
+          <div class="team-avatar">
+            <i class="fas fa-code"></i>
+          </div>
+          <h3>Michael Chen</h3>
+          <div class="role">CTO</div>
+          <p>Technical architect specializing in distributed systems and machine learning. Expert in building scalable search infrastructure.</p>
+        </div>
+        
+        <div class="team-card">
+          <div class="team-avatar">
+            <i class="fas fa-palette"></i>
+          </div>
+          <h3>Emily Rodriguez</h3>
+          <div class="role">Head of Design</div>
+          <p>User experience designer focused on creating intuitive and accessible interfaces that make search effortless for everyone.</p>
+        </div>
+        
+        <div class="team-card">
+          <div class="team-avatar">
+            <i class="fas fa-chart-bar"></i>
+          </div>
+          <h3>David Kim</h3>
+          <div class="role">Head of Data Science</div>
+          <p>Data scientist and AI researcher developing cutting-edge algorithms to improve search relevance and user satisfaction.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="content-section">
+      <div class="mission-section">
+        <h2>Our Mission</h2>
+        <p>
+          To empower people worldwide with the most intelligent, fast, and reliable search experience. 
+          We believe that access to information is a fundamental right, and we're committed to making 
+          the world's knowledge more discoverable, organized, and useful for everyone, everywhere.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 Zoogle Search. All rights reserved. | Privacy Policy | Terms of Service</p>
+  </footer>
+
+  <script>
+    function toggleMobileMenu() {
+      const mobileMenu = document.getElementById('mobileMenu');
+      const menuBtn = document.querySelector('.mobile-menu-btn i');
+      
+      if (mobileMenu.classList.contains('active')) {
+        mobileMenu.classList.remove('active');
+        menuBtn.classList.remove('fa-times');
+        menuBtn.classList.add('fa-bars');
+      } else {
+        mobileMenu.classList.add('active');
+        menuBtn.classList.remove('fa-bars');
+        menuBtn.classList.add('fa-times');
+      }
+    }
+
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuBtn = document.querySelector('.mobile-menu-btn i');
+        mobileMenu.classList.remove('active');
+        menuBtn.classList.remove('fa-times');
+        menuBtn.classList.add('fa-bars');
+      });
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+      const mobileMenu = document.getElementById('mobileMenu');
+      const menuBtn = document.querySelector('.mobile-menu-btn');
+      
+      if (!mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+        mobileMenu.classList.remove('active');
+        const menuIcon = document.querySelector('.mobile-menu-btn i');
+        menuIcon.classList.remove('fa-times');
+        menuIcon.classList.add('fa-bars');
+      }
+    });
+  </script>
+</body>
+
+</html>
