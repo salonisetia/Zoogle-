@@ -307,7 +307,7 @@
             const formData = new FormData();
             formData.append('myfile', imageFile);
 
-            const uploadResponse = await fetch("http://localhost:5550/upload-image", {
+            const uploadResponse = await fetch("upload-image", {
               method: "POST",
               body: formData,
             });
@@ -340,14 +340,14 @@
 
         try {
           // Check if profile already exists
-          const checkResponse = await fetch("http://localhost:5550/getProfile");
+          const checkResponse = await fetch("/getProfile");
           const existingProfiles = await checkResponse.json();
           const existingProfile = existingProfiles.find(profile => profile.email === email);
           
           // Use update API if profile exists, otherwise use insert API
           const apiEndpoint = existingProfile ? "/update-profile" : "/insert-profile";
           
-          const response = await fetch(`http://localhost:5550${apiEndpoint}`, {
+          const response = await fetch(apiEndpoint, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

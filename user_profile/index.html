@@ -345,7 +345,6 @@
   </style>
 </head>
 <body>
-  <!-- Navbar -->
   <header>
     <nav class="navbar">
       <div class="navbar-left">
@@ -364,7 +363,6 @@
         <i class="fas fa-bars"></i>
       </button>
     </nav>
-    <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
       <ul>
         <li><a href="../home/index.html">Home</a></li>
@@ -478,7 +476,8 @@
     // Load profile data from database
     async function loadProfileData(email) {
       try {
-        const response = await fetch('http://localhost:5550/getProfile');
+        // Updated to use relative path for deployment
+        const response = await fetch('/getProfile'); 
         const profiles = await response.json();
         
         if (response.ok && profiles) {
@@ -499,7 +498,7 @@
             // Update avatar with profile image if available
             if (userProfile.image) {
               const avatar = document.getElementById('avatar');
-              avatar.style.backgroundImage = `url(http://localhost:5550${userProfile.image})`;
+              avatar.style.backgroundImage = `url(${userProfile.image})`; 
               avatar.style.backgroundSize = 'cover';
               avatar.style.backgroundPosition = 'center';
               avatar.textContent = ''; // Remove initials when image is present

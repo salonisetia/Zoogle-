@@ -717,14 +717,14 @@
 
       async function loadProfile() {
         try {
-          const res = await fetch("http://localhost:5550/getProfile");
+          const res = await fetch("/getProfile");
           const data = await res.json();
           var records = "";
 
           if (res.ok && data) {
             for (items of data) {
               // Use the uploaded image if available, otherwise use placeholder
-              const imageSrc = items.image ? `http://localhost:5550${items.image}` : "https://source.unsplash.com/featured/300x200?trending";
+              const imageSrc = items.image ? items.image : "https://source.unsplash.com/featured/300x200?trending";
               
               records += `<div class="card">
                             <img
@@ -753,7 +753,7 @@
               txt: txt,
           };
         try {
-          const res = await fetch("http://localhost:5550/SearchProfile", {
+          const res = await fetch("/SearchProfile", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -766,7 +766,7 @@
           if (res.ok && data) {
             for (items of data["data"]) {
               // Use the uploaded image if available, otherwise use placeholder
-              const imageSrc = items.image ? `http://localhost:5550${items.image}` : "https://source.unsplash.com/featured/300x200?trending";
+              const imageSrc = items.image ? items.image : "https://source.unsplash.com/featured/300x200?trending";
               
               records += `<div class="card">
                             <img

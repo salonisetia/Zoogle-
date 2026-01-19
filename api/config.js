@@ -1,10 +1,15 @@
 const mongoose = require('mongoose');
 require("dotenv").config();
-mongoose.connect("mongodb://127.0.0.1:27017/backend_with_mongo")
-.then(()=>{
-  console.log("Connection created");
+
+// Use the CONNECTION_STRING from your .env file
+const dbURI = process.env.CONNECTION_STRING;
+
+mongoose.connect(dbURI)
+.then(() => {
+  console.log("Live MongoDB Atlas Connection Created");
 })
-.catch(()=>{
-  console.log("Connection failed");
-})
-mongodb:module.exports=mongoose;
+.catch((err) => {
+  console.log("Connection Failed. Error:", err.message);
+});
+
+module.exports = mongoose;

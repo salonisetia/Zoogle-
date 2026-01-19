@@ -180,7 +180,7 @@
           stateEl.className = 'loading';
           stateEl.textContent = 'Loading profile...';
 
-          const res = await fetch('http://localhost:5550/getProfile');
+          const res = await fetch('/getProfile');
           const list = await res.json();
 
           if (!res.ok || !Array.isArray(list)) {
@@ -196,7 +196,7 @@
           }
 
           // Populate UI
-          const imageSrc = profile.image ? `http://localhost:5550${profile.image}` : '';
+          const imageSrc = profile.image ? profile.image : '';
           const imgEl = document.getElementById('profileImage');
           if (imageSrc) {
             imgEl.src = imageSrc;

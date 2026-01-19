@@ -6,7 +6,7 @@ app.use(express.static("uploads"));
 app.use('/uploads', express.static('uploads'));
 require("dotenv").config();   //to add env file
 
-var host=process.env.HOST || "localhost";
+var host=process.env.HOST || "0.0.0.0";
 var port=process.env.PORT || 5550;
 
 app.use(cors());
