@@ -1,36 +1,16 @@
-const { type } = require("os");
-const mongoose = require("./config");
+const mongoose = require("mongoose");
+
 const profileSchema = new mongoose.Schema({
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  contact_number: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  business_name: {
-    type: String,
-    required: true,
-  },
-  business_category: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-  address: {
-    type: String,
-    required: true,
-  },
-  image: {
-    type: String,
-    required: false,
-  },
+  email: { type: String, required: true, unique: true },
+  contact_number: { type: String, required: true },
+  business_name: { type: String, required: true },
+  business_category: { type: String, required: true },
+  description: { type: String },
+  address: { type: String },
+  image: { type: String }
 });
-const Profile = mongoose.model("profile", profileSchema);
-module.exports = Profile;
+
+// Text index for SearchProfile logic
+profileSchema.index({ business_name: 'text', description: 'text', business_category: 'text' });
+
+module.exports = mongoose.model("profiles", profileSchema);
